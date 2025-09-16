@@ -1,3 +1,76 @@
+<?php
+
+// Configuración de la base de datos
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "factura-peru";
+
+// Crear conexión
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verificar conexión
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Aquí puedes agregar tu lógica PHP para manejar datos
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Manejar datos enviados por el formulario
+     // Obtener los datos del odontograma enviados por el formulario
+    $odontogramaData = $_POST['odontograma'];
+    $id = $_GET['id'];
+    // Preparar la consulta SQL
+    $query = "INSERT INTO odontograma (id, odontograma, fecha) 
+              VALUES (?, ?, NOW())
+              ON DUPLICATE KEY UPDATE 
+              odontograma = ?, 
+              fecha = NOW()";
+    
+    $stmt = $conn->prepare($query);
+    
+    // ID del paciente (deberías obtenerlo de tu sistema)
+  //  $paciente_id = 1; 
+    
+    // Vincular parámetros
+    $stmt->bind_param("iss", $id, $odontogramaData, $odontogramaData);
+    
+    // Ejecutar la consulta
+    if ($stmt->execute()) {
+        echo "<script>alert('Odontograma guardado correctamente');</script>";
+    } else {
+        echo "<script>alert('Error al guardar el odontograma: " . $stmt->error . "');</script>";
+    }
+    
+    $stmt->close();
+}
+
+$odontogramaGuardado = null;
+
+// Verificar si viene un ID por GET
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    
+    // Preparar consulta
+    $query = "SELECT odontograma FROM odontograma WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $id);
+    
+    // Ejecutar consulta
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        if ($row = $result->fetch_assoc()) {
+            $odontogramaGuardado = $row['odontograma'];
+        }
+    }
+    $stmt->close();
+}
+
+//echo  $odontogramaGuardado ;
+//exit;
+
+?>
+
 <!doctype html>
 <html lang="">
     <head>
@@ -19,11 +92,12 @@
 
 <link rel="stylesheet" href="asset/periodontograma/./css/styles.css">
 
-        <title>Periodontograma · Sepa</title>
+        <title>Periodontograma</title>
     </head>
 
     <body class="">
         
+
 
         <header class="">
 	
