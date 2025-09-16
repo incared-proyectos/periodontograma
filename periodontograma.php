@@ -17,14 +17,14 @@ if ($conn->connect_error) {
 // Aquí puedes agregar tu lógica PHP para manejar datos
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Manejar datos enviados por el formulario
-     // Obtener los datos del odontograma enviados por el formulario
-    $odontogramaData = $_POST['odontograma'];
+     // Obtener los datos del periodontograma enviados por el formulario
+    $periodontogramaData = $_POST['periodontograma'];
     $id = $_GET['id'];
     // Preparar la consulta SQL
-    $query = "INSERT INTO odontograma (id, odontograma, fecha) 
+    $query = "INSERT INTO periodontograma (id, periodontograma, fecha) 
               VALUES (?, ?, NOW())
               ON DUPLICATE KEY UPDATE 
-              odontograma = ?, 
+              periodontograma = ?, 
               fecha = NOW()";
     
     $stmt = $conn->prepare($query);
@@ -33,26 +33,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   //  $paciente_id = 1; 
     
     // Vincular parámetros
-    $stmt->bind_param("iss", $id, $odontogramaData, $odontogramaData);
+    $stmt->bind_param("iss", $id, $periodontogramaData, $periodontogramaData);
     
     // Ejecutar la consulta
     if ($stmt->execute()) {
-        echo "<script>alert('Odontograma guardado correctamente');</script>";
+        echo "<script>alert('Periodontograma guardado correctamente');</script>";
     } else {
-        echo "<script>alert('Error al guardar el odontograma: " . $stmt->error . "');</script>";
+        echo "<script>alert('Error al guardar el periodontograma: " . $stmt->error . "');</script>";
     }
     
     $stmt->close();
 }
 
-$odontogramaGuardado = null;
+$periodontogramaGuardado = null;
 
 // Verificar si viene un ID por GET
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     
     // Preparar consulta
-    $query = "SELECT odontograma FROM odontograma WHERE id = ?";
+    $query = "SELECT periodontograma FROM periodontograma WHERE id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $id);
     
@@ -60,13 +60,13 @@ if (isset($_GET['id'])) {
     if ($stmt->execute()) {
         $result = $stmt->get_result();
         if ($row = $result->fetch_assoc()) {
-            $odontogramaGuardado = $row['odontograma'];
+            $periodontogramaGuardado = $row['periodontograma'];
         }
     }
     $stmt->close();
 }
 
-//echo  $odontogramaGuardado ;
+//echo  $periodontogramaGuardado ;
 //exit;
 
 ?>
