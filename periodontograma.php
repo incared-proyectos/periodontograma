@@ -18,22 +18,21 @@ if ($conn->connect_error) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Manejar datos enviados por el formulario
      // Obtener los datos del periodontograma enviados por el formulario
-    $periodontogramaData = $_POST['periodontograma'];
+
+    $periodontogramaData = $_POST['datos'] ?? '';
     $id = $_GET['id'];
+    $codcliente = $_GET['codcliente'];
     // Preparar la consulta SQL
-    $query = "INSERT INTO periodontograma (id, periodontograma, fecha) 
-              VALUES (?, ?, NOW())
+    $query = "INSERT INTO periodontograma (id, codcliente, periodontograma, fecha) 
+              VALUES (?,?, ?, NOW())
               ON DUPLICATE KEY UPDATE 
-              periodontograma = ?, 
+              periodontograma = ?,
               fecha = NOW()";
     
     $stmt = $conn->prepare($query);
     
-    // ID del paciente (deberías obtenerlo de tu sistema)
-  //  $paciente_id = 1; 
-    
     // Vincular parámetros
-    $stmt->bind_param("iss", $id, $periodontogramaData, $periodontogramaData);
+    $stmt->bind_param("isss", $id, $codcliente, $periodontogramaData, $periodontogramaData);
     
     // Ejecutar la consulta
     if ($stmt->execute()) {
@@ -4770,5 +4769,15 @@ function $buo_f(){
             })(jQuery);
         </script>
 
+
+<script>
+    function getQueryParams() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    id: params.get('id'),
+    codcliente: params.get('codcliente')
+  };
+}
+    </script>
     </body>
 </html>

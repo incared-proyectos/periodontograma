@@ -1676,7 +1676,14 @@ function deleteChart(id){
  * Envía datos a PHP para generar el archivo de descarga
  */
 
+
+
+
+
 function downloadJSON(){
+
+
+
 
     // Unifica datos a enviar
     var data = {
@@ -1686,9 +1693,14 @@ function downloadJSON(){
 
     // Crea form dynamically
     var form = document.createElement("form");
+    const { id, codcliente } = getQueryParams();
         form.setAttribute("method", "post");
-        form.setAttribute("action", "inc/download-json.php");
-
+        if (id && codcliente) {
+      form.setAttribute("action", `periodontograma.php?id=${id}&codcliente=${codcliente}`);
+        }
+        else {
+         form.setAttribute("action", "periodontograma.php?id=55&codcliente=66");
+        }
     var datos = document.createElement("input");
         datos.setAttribute("type", "hidden");
         datos.setAttribute("name", "datos");      
