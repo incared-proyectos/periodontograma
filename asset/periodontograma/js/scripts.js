@@ -324,6 +324,10 @@ const camposImplante = ["furca__n__","furca__n__-a","furca__n__-b","f__n__","f__
         downloadJSON();
     });    
 
+    $("#btn-descargar").on('click',function(e){
+        e.preventDefault();
+        saveJSON();
+    });  
     // Acción: Importar/cargar archivo JSON
     $("#btn-importar").on("click",function(e){
         e.preventDefault();
@@ -1668,6 +1672,12 @@ function deleteChart(id){
  * EXPORT DATOS
  *
  * ======================================================================= */
+
+function saveJSON() {
+    const { id, codcliente } = getQueryParams();
+    const url = `periodontograma.php?id=${id}&codcliente=${codcliente}&descarga=1`;
+    window.open(url, '_blank');
+}
 
 
 

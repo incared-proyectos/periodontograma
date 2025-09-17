@@ -108,6 +108,8 @@ if (isset($_GET['descarga'])) {
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
+<!-- font awesome icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
         
 <!-- fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -141,40 +143,31 @@ if (isset($_GET['descarga'])) {
 		<div class="row gx-0 py-3">
 			<div class="col-md-12 text-center">
 				<div id="menu">
-
-					<a href="https://sepa.es/#" id="btn-imprimir" class="btn btn-sm btn-outline-dark"  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" data-bs-title="<strong>Imprima los datos de este Periodontograma</strong>.<br>Si su ordenador dispone de <em>impresión en PDF</em> podrá guardarlo como archivo PDF.">
+					<a href="#" id="btn-imprimir" class="btn btn-sm btn-outline-dark"  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" data-bs-title="<strong>Imprima los datos de este Periodontograma</strong>.<br>Si su ordenador dispone de <em>impresión en PDF</em> podrá guardarlo como archivo PDF.">
 						<span data-bs-toggle="modal" data-bs-target="#modal-print">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewbox="0 0 16 16">
-							<path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
-							<path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/>
-							</svg> 
-							Imprimir						</span>
+						<i class="fa-solid fa-print me-2"></i> 
+						Imprimir</span>
 					</a>
 
-					<a href="https://sepa.es/#" id="btn-exportar" onclick="gtag('event', 'click_exportar');" class="btn btn-sm btn-outline-dark"  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" data-bs-title="<strong>Descargue los datos de este Periodontograma en un archivo</strong>.<br>Podrá guardarlo en su ordenador y volver a cargarlo cuando lo necesite.">
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewbox="0 0 16 16">
-						<path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-						<path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-						</svg>
-						Exportar					</a>
+					<a href="#" id="btn-exportar" class="btn btn-sm btn-outline-dark"  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" data-bs-title="<strong>Guarde los datos de este Periodontograma en la base de datos</strong>.<br>Podrá guardarlo en la base de datos y volver a cargarlo cuando lo necesite.">
+						<i class="fa-solid fa-floppy-disk"></i> 
+						Guardar</a>
+						
+						<a href="#" id="btn-descargar" class="btn btn-sm btn-outline-dark"  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" data-bs-title="<strong>Descargue los datos de este Periodontograma en un archivo</strong>.<br>Podrá guardarlo en su ordenador y volver a cargarlo cuando lo necesite.">
+						<i class="fa-solid fa-file-export me-2"></i>
+						Exportar</a>
 
-					<a href="https://sepa.es/#" id="btn-importar" class="btn btn-sm btn-outline-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" data-bs-title="<strong>Cargue los datos de un Periodontograma guardado</strong>.<br>Si descargó los datos de un Peridontograma anterior podrá cargar el archivo y consultar los datos del Peridontograma guardado.">
+					<a href="#" id="btn-importar" class="btn btn-sm btn-outline-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" data-bs-title="<strong>Cargue los datos de un Periodontograma guardado</strong>.<br>Si descargó los datos de un Peridontograma anterior podrá cargar el archivo y consultar los datos del Peridontograma guardado.">
 						<span data-bs-toggle="modal" data-bs-target="#modal-import-JSON-file">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewbox="0 0 16 16">
-							<path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-							<path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
-							</svg>
-							Importar						</span>
+							<i class="fa-solid fa-file-import me-2"></i>
+							Importar</span>
 					</a>
 
 
-					<a href="https://sepa.es/#" id="btn-instrucciones" class="btn btn-sm btn-outline-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" data-bs-title="<strong>Consulte los detalles sobre el uso del Periodontograma</strong>.<br>Instrucciones sobre los valores a intruducir en cada casilla.">
+					<a href="#" id="btn-instrucciones" class="btn btn-sm btn-outline-dark" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true" data-bs-title="<strong>Consulte los detalles sobre el uso del Periodontograma</strong>.<br>Instrucciones sobre los valores a intruducir en cada casilla.">
 						<span data-bs-toggle="modal" data-bs-target="#modal-instrucciones">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewbox="0 0 16 16">
-							<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-							<path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
-							</svg>
-							Instrucciones						</span>
+							<i class="fa-solid fa-circle-question me-2"></i>
+							Instrucciones</span>
 					</a>
 
 				</div>
@@ -4595,7 +4588,7 @@ if (isset($_GET['descarga'])) {
       </div>
       <div class="modal-footer">
         <button type="button" id="btn-modal-cancel-print" class="btn btn-outline-dark btn-sm" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" id="btn-modal-print"  onclick="gtag('event', 'print_pdf');" class="btn btn-dark btn-sm">Imprimir</button>
+        <button type="button" id="btn-modal-print" class="btn btn-dark btn-sm">Imprimir</button>
       </div>
     </div>
   </div>
