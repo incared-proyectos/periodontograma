@@ -14,6 +14,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+
+
 // Aquí puedes agregar tu lógica PHP para manejar datos
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Manejar datos enviados por el formulario
@@ -49,26 +51,49 @@ $periodontogramaGuardado = null;
 // Verificar si viene un ID por GET
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
+    $codcliente = $_GET['codcliente'];
     
     // Preparar consulta
-    $query = "SELECT periodontograma FROM periodontograma WHERE id = ?";
+    $query = "SELECT periodontograma FROM periodontograma WHERE id = ? and codcliente= ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $id);
+    $stmt->bind_param("ii", $id, $codcliente);
     
     // Ejecutar consulta
     if ($stmt->execute()) {
         $result = $stmt->get_result();
         if ($row = $result->fetch_assoc()) {
-            $periodontogramaGuardado = $row['periodontograma'];
+        $periodontogramaGuardado = isset($row['periodontograma']) ? $row['periodontograma'] : null;
         }
     }
     $stmt->close();
 }
 
-//echo  $periodontogramaGuardado ;
-//exit;
+if (isset($_GET['descarga'])) {
+    // Nombre sugerido del archivo
+    $nombreArchivo = "periodontograma.json";
+
+    // Contenido que quieres descargar
+    $contenido = $periodontogramaGuardado;
+
+    // Forzar headers para descarga
+    header('Content-Type: application/json');
+    header('Content-Disposition: attachment; filename="' . $nombreArchivo . '"');
+    header('Content-Length: ' . strlen($contenido));
+    header('Pragma: no-cache');
+    header('Expires: 0');
+
+    // Imprimir contenido y terminar ejecución
+    echo $contenido;
+    exit;
+}
+
+
+
 
 ?>
+
+
+
 
 <!doctype html>
 <html lang="">
@@ -4545,7 +4570,7 @@ if (isset($_GET['id'])) {
       </div>
       <div class="modal-footer">
         <button type="button" id="btn-modal-cancel-import-json" class="btn btn-outline-dark btn-sm" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" id="btn-modal-import-json"  onclick="gtag('event', 'click_importar');" class="btn btn-dark btn-sm">Importar</button>
+        <button type="button" id="btn-modal-import-json" class="btn btn-dark btn-sm">Importar</button>
       </div>
     </div>
   </div>
@@ -4779,5 +4804,19 @@ function $buo_f(){
   };
 }
     </script>
+
+<script>
+// Espera a que el DOM esté listo
+document.addEventListener("DOMContentLoaded", function () {
+    <?php if (!empty($periodontogramaGuardado)) : ?>
+        // Pasamos la variable PHP al JS como string (escapando correctamente)
+        const data = <?php echo json_encode($periodontogramaGuardado); ?>;
+        processFileData(data); // Llamamos la función JS con el dato
+    <?php endif; ?>
+});
+</script>
+
+
+
     </body>
 </html>

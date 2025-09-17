@@ -1767,8 +1767,13 @@ function cancelImportJSONFile(){
 
 // Procesa datos importados
 function processFileData(fileContent){
-
-    var importedData = fileContent; 
+if (typeof fileContent === "string") {
+var importedData = JSON.parse(fileContent);
+}
+else
+{
+var importedData = fileContent; 
+}
 
     datosPaciente = importedData['datosPaciente'];
     piezas = importedData['piezas'];
